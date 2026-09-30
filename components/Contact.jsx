@@ -246,6 +246,31 @@ export default function Contact() {
             </form>
           </Reveal>
         </div>
+
+        <Reveal className="mt-8" delay={0.1}>
+          <div className="overflow-hidden rounded-3xl border border-border bg-card">
+            <div className="flex items-center gap-2 border-b border-border px-6 py-4">
+              <MapPin className="h-4 w-4 text-primary" />
+              <span className="text-sm font-medium">Find us in Lucknow</span>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteConfig.mapQuery)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="ml-auto text-xs font-medium text-primary hover:underline"
+              >
+                Open in Google Maps
+              </a>
+            </div>
+            <iframe
+              title="SS Training School location"
+              src={`https://www.google.com/maps?q=${encodeURIComponent(siteConfig.mapQuery)}&output=embed`}
+              className="h-72 w-full border-0 grayscale-[0.2] md:h-80"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
+        </Reveal>
       </div>
     </section>
   );
