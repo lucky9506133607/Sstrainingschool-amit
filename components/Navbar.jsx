@@ -35,7 +35,7 @@ export default function Navbar() {
         scrolled ? "glass border-b border-border/60" : "bg-transparent"
       }`}
     >
-      <nav className="container flex h-16 items-center justify-between md:h-20">
+      <nav className="container flex h-16 items-center justify-between lg:h-20">
         <button onClick={() => go("#home")} className="flex items-center gap-2">
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary font-display text-sm font-bold text-primary-foreground">
             SS
@@ -45,7 +45,7 @@ export default function Navbar() {
           </span>
         </button>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-1 lg:flex">
           {siteConfig.nav.map((item) => (
             <button
               key={item.href}
@@ -57,7 +57,7 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <a href={whatsappLink()} target="_blank" rel="noreferrer">
             <Button variant="outline" className="gap-2 border-border bg-transparent">
               <MessageCircle className="h-4 w-4" /> WhatsApp
@@ -70,7 +70,7 @@ export default function Navbar() {
 
         <button
           onClick={() => setOpen((v) => !v)}
-          className="grid h-10 w-10 place-items-center rounded-md border border-border md:hidden"
+          className="grid h-10 w-10 place-items-center rounded-md border border-border lg:hidden"
           aria-label="Toggle menu"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -79,7 +79,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden fixed inset-x-0 top-16 z-40 origin-top overflow-hidden border-b border-border/60 bg-background shadow-xl shadow-black/40 backdrop-blur transition-all duration-300 ${
+        className={`lg:hidden fixed inset-x-0 top-16 z-40 origin-top overflow-hidden border-b border-border/60 bg-background shadow-xl shadow-black/40 backdrop-blur transition-all duration-300 ${
           open ? "max-h-[90vh] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
