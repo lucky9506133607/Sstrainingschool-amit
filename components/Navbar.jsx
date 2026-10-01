@@ -77,6 +77,15 @@ export default function Navbar() {
         </button>
       </nav>
 
+      {/* Backdrop blur overlay behind the mobile menu */}
+      <div
+        onClick={() => setOpen(false)}
+        aria-hidden="true"
+        className={`lg:hidden fixed inset-x-0 bottom-0 top-16 z-30 bg-background/40 backdrop-blur-md transition-opacity duration-300 ${
+          open ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      />
+
       {/* Mobile menu */}
       <div
         className={`lg:hidden fixed inset-x-0 top-16 z-40 origin-top overflow-hidden border-b border-border/60 bg-background shadow-xl shadow-black/40 backdrop-blur transition-all duration-300 ${
