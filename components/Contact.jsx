@@ -135,7 +135,7 @@ export default function Contact() {
                 </div>
               </div>
               <a href={whatsappLink()} target="_blank" rel="noreferrer" className="mt-8 block">
-                <Button className="w-full gap-2 bg-[#25D366] text-black hover:bg-[#25D366]/90">
+                <Button className="h-12 w-full gap-2 bg-[#25D366] text-base text-black hover:bg-[#25D366]/90">
                   <MessageCircle className="h-4 w-4" /> Chat on WhatsApp
                 </Button>
               </a>
