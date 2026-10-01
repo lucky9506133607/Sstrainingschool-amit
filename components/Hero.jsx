@@ -114,34 +114,120 @@ export default function Hero() {
       {/* Moving car track */}
       <div
         ref={trackRef}
-        className="absolute bottom-0 left-0 z-10 h-28 w-full overflow-hidden"
+        className="absolute bottom-0 left-0 z-10 h-48 w-full overflow-hidden"
       >
         <div className="absolute bottom-6 left-0 h-px w-full bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
         <div className="absolute bottom-5 left-0 h-px w-full bg-border" />
         <div ref={carRef} className="absolute bottom-6 left-0 will-change-transform">
           <svg
-            viewBox="0 0 240 100"
-            className="h-[65px] w-auto drop-shadow-[0_12px_20px_rgba(220,38,38,0.4)] sm:h-[76px]"
+            viewBox="0 0 440 184"
+            className="h-[106px] w-auto drop-shadow-[0_18px_26px_rgba(0,0,0,0.55)] sm:h-[128px] md:h-[150px]"
             aria-hidden="true"
           >
             <defs>
               <linearGradient id="carBody" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#ef4444" />
-                <stop offset="1" stopColor="#b91c1c" />
+                <stop offset="0" stopColor="#fbfbfd" />
+                <stop offset="0.45" stopColor="#d3d7de" />
+                <stop offset="0.64" stopColor="#aeb4bf" />
+                <stop offset="1" stopColor="#848b98" />
               </linearGradient>
+              <linearGradient id="carGlass" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#223247" />
+                <stop offset="1" stopColor="#47627f" />
+              </linearGradient>
+              <linearGradient id="carRim" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stopColor="#eef0f3" />
+                <stop offset="1" stopColor="#9aa1ad" />
+              </linearGradient>
+              <radialGradient id="carHead" cx="0.5" cy="0.5" r="0.5">
+                <stop offset="0" stopColor="#fff7e0" stopOpacity="0.9" />
+                <stop offset="1" stopColor="#fff7e0" stopOpacity="0" />
+              </radialGradient>
             </defs>
-            <ellipse cx="120" cy="88" rx="96" ry="6" fill="rgba(0,0,0,0.45)" />
+
+            {/* ground contact shadow */}
+            <ellipse cx="220" cy="180" rx="188" ry="7" fill="rgba(0,0,0,0.45)" />
+
+            {/* headlight beam glow */}
+            <circle cx="430" cy="124" r="34" fill="url(#carHead)" />
+
+            {/* body */}
             <path
-              d="M14 66 C14 58 20 54 30 53 L60 52 C72 40 90 32 116 32 L150 32 C168 32 182 40 196 52 L214 56 C224 58 228 62 228 68 L228 72 C228 76 224 78 220 78 L22 78 C17 78 14 74 14 70 Z"
+              d="M16 134 C17 124 23 118 34 117 L72 115 C96 94 122 77 164 75 L252 73 C286 74 302 90 320 110 L406 114 C420 115 426 121 426 131 C427 141 423 149 414 149 L366 149 A36 36 0 0 0 294 149 L131 149 A36 36 0 0 0 59 149 L34 149 C23 149 16 144 16 134 Z"
               fill="url(#carBody)"
+              stroke="#6b7280"
+              strokeOpacity="0.35"
+              strokeWidth="1"
             />
-            <path d="M74 50 C84 42 96 38 114 38 L128 38 L128 50 Z" fill="#0b1220" opacity="0.9" />
-            <path d="M134 38 L150 38 C162 38 172 44 180 50 L134 50 Z" fill="#0b1220" opacity="0.9" />
-            <circle cx="223" cy="64" r="3" fill="#fff7ed" />
-            <circle cx="66" cy="78" r="15" fill="#0a0a0a" />
-            <circle cx="66" cy="78" r="6" fill="#3f3f46" />
-            <circle cx="174" cy="78" r="15" fill="#0a0a0a" />
-            <circle cx="174" cy="78" r="6" fill="#3f3f46" />
+
+            {/* roof highlight */}
+            <path
+              d="M74 114 C98 93 124 77 165 75 L252 73 C286 74 302 90 319 109"
+              fill="none"
+              stroke="#ffffff"
+              strokeOpacity="0.55"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+
+            {/* glass greenhouse */}
+            <path
+              d="M96 112 C112 94 131 80 166 79 L248 77 C279 79 293 92 305 112 Z"
+              fill="url(#carGlass)"
+            />
+            {/* glass reflection streak */}
+            <path d="M120 108 L150 84 L170 84 L140 108 Z" fill="#ffffff" opacity="0.12" />
+            {/* B-pillar */}
+            <rect x="196" y="78" width="7" height="35" fill="url(#carBody)" />
+            {/* window frame */}
+            <path
+              d="M96 112 C112 94 131 80 166 79 L248 77 C279 79 293 92 305 112"
+              fill="none"
+              stroke="#2a3642"
+              strokeOpacity="0.6"
+              strokeWidth="2"
+            />
+
+            {/* door seams */}
+            <line x1="150" y1="116" x2="150" y2="146" stroke="#8a909c" strokeWidth="1.5" strokeOpacity="0.7" />
+            <line x1="252" y1="112" x2="252" y2="146" stroke="#8a909c" strokeWidth="1.5" strokeOpacity="0.7" />
+            {/* door handles */}
+            <rect x="166" y="120" width="16" height="4" rx="2" fill="#5b616c" />
+            <rect x="256" y="120" width="16" height="4" rx="2" fill="#5b616c" />
+            {/* side mirror */}
+            <path d="M312 104 L324 101 L324 109 L312 110 Z" fill="#9aa1ad" />
+
+            {/* red brand accent line */}
+            <path d="M62 143 L300 141" stroke="#dc2626" strokeWidth="3" strokeOpacity="0.85" strokeLinecap="round" />
+
+            {/* taillight */}
+            <path d="M18 120 L30 120 L30 130 L18 129 Z" fill="#e11d2a" />
+            {/* headlight lens */}
+            <path d="M408 116 L422 120 L422 128 L408 128 Z" fill="#eaf2ff" />
+
+            {/* rear wheel */}
+            <circle cx="95" cy="148" r="33" fill="#0d0d0f" />
+            <circle cx="95" cy="148" r="19" fill="url(#carRim)" />
+            <g stroke="#7b818c" strokeWidth="3">
+              <line x1="95" y1="148" x2="95" y2="130" />
+              <line x1="95" y1="148" x2="112" y2="153" />
+              <line x1="95" y1="148" x2="105" y2="163" />
+              <line x1="95" y1="148" x2="85" y2="163" />
+              <line x1="95" y1="148" x2="78" y2="153" />
+            </g>
+            <circle cx="95" cy="148" r="4.5" fill="#e5e7eb" />
+
+            {/* front wheel */}
+            <circle cx="330" cy="148" r="33" fill="#0d0d0f" />
+            <circle cx="330" cy="148" r="19" fill="url(#carRim)" />
+            <g stroke="#7b818c" strokeWidth="3">
+              <line x1="330" y1="148" x2="330" y2="130" />
+              <line x1="330" y1="148" x2="347" y2="153" />
+              <line x1="330" y1="148" x2="340" y2="163" />
+              <line x1="330" y1="148" x2="320" y2="163" />
+              <line x1="330" y1="148" x2="313" y2="153" />
+            </g>
+            <circle cx="330" cy="148" r="4.5" fill="#e5e7eb" />
           </svg>
         </div>
       </div>
