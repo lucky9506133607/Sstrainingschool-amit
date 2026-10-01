@@ -120,7 +120,7 @@ export default function Hero() {
         <div className="absolute bottom-5 left-0 h-px w-full bg-border" />
         <div ref={carRef} className="absolute bottom-6 left-0 will-change-transform">
           <svg
-            viewBox="0 0 440 184"
+            viewBox="0 0 476 184"
             className="h-[106px] w-auto drop-shadow-[0_18px_26px_rgba(0,0,0,0.55)] sm:h-[128px] md:h-[150px]"
             aria-hidden="true"
           >
