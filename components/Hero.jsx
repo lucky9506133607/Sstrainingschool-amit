@@ -59,7 +59,7 @@ export default function Hero() {
       {/* Red glow */}
       <div className="pointer-events-none absolute -right-20 top-1/4 h-96 w-96 rounded-full bg-primary/25 blur-[120px]" />
 
-      <div className="container relative z-10 flex min-h-screen flex-col justify-center pt-24 pb-40">
+      <div className="container relative z-10 flex min-h-screen flex-col justify-center pt-28 pb-40">
         <div className="max-w-2xl">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/70 glass px-4 py-1.5 text-xs font-medium text-muted-foreground">
             <ShieldCheck className="h-3.5 w-3.5 text-primary" />

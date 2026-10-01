@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { Menu, X, MessageCircle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import siteConfig, { whatsappLink } from "@/lib/siteConfig";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [announce, setAnnounce] = useState(true);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -32,10 +33,35 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? "glass border-b border-border/60" : "bg-transparent"
+        scrolled || open ? "glass border-b border-border/60" : "bg-transparent"
       }`}
     >
-      <nav className="container flex h-16 items-center justify-between lg:h-20">
+      {/* Announcement bar */}
+      {announce && (
+        <div className="relative z-[60] bg-gradient-to-r from-primary via-red-600 to-primary">
+          <div className="container flex h-9 items-center justify-center gap-2 pr-8 text-center text-[11px] font-medium text-primary-foreground sm:text-sm">
+            <Sparkles className="h-3.5 w-3.5 shrink-0" />
+            <span>Now enrolling — book your first driving lesson today!</span>
+            <a
+              href={whatsappLink()}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden font-semibold underline underline-offset-2 sm:inline"
+            >
+              Message us
+            </a>
+            <button
+              onClick={() => setAnnounce(false)}
+              aria-label="Dismiss announcement"
+              className="absolute right-3 top-1/2 -translate-y-1/2 opacity-80 transition-opacity hover:opacity-100"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      <nav className="container relative z-[60] flex h-16 items-center justify-between lg:h-20">
         <button onClick={() => go("#home")} className="flex items-center gap-2">
           <img
             src="/images/logo-square.jpg"
@@ -83,14 +109,14 @@ export default function Navbar() {
       <div
         onClick={() => setOpen(false)}
         aria-hidden="true"
-        className={`lg:hidden fixed inset-x-0 bottom-0 top-16 z-30 bg-background/40 backdrop-blur-md transition-opacity duration-300 ${
+        className={`lg:hidden fixed inset-0 z-30 bg-background/40 backdrop-blur-md transition-opacity duration-300 ${
           open ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       />
 
       {/* Mobile menu */}
       <div
-        className={`lg:hidden fixed inset-x-0 top-16 z-40 origin-top overflow-hidden border-b border-border/60 bg-background shadow-xl shadow-black/40 backdrop-blur transition-all duration-300 ${
+        className={`lg:hidden absolute left-0 right-0 top-full z-40 origin-top overflow-hidden border-b border-border/60 bg-background shadow-xl shadow-black/40 backdrop-blur transition-all duration-300 ${
           open ? "max-h-[90vh] opacity-100" : "max-h-0 opacity-0"
         }`}
       >

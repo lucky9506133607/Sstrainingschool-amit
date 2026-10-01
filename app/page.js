@@ -8,6 +8,7 @@ import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
+import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 
@@ -24,6 +25,7 @@ export default function Home() {
       <Testimonials />
       <FAQ />
       <Contact />
+      <Newsletter />
       <Footer />
       <WhatsAppFloat />
     </main>

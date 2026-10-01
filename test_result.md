@@ -120,10 +120,25 @@ backend:
         -agent: "testing"
         -comment: "✓ ALL TESTS PASSED (8/8). Tested: (1) GET /api/contact returns {ok:true,service:contact}. (2) Valid POST with full payload returns HTTP 201 with {ok:true, id:<UUID>, emailSent, confirmationSent}. Verified MongoDB document inserted in 'contact_leads' collection with all required fields (id, fullName, email lowercased, phone, whatsapp, course, message, createdAt, source). (3) Validation errors correctly return HTTP 400 with error message and NO MongoDB insert for: missing fullName, invalid email format, missing course, empty body, invalid JSON. (4) CRITICAL RESILIENCE VERIFIED: Lead persistence does NOT depend on Resend email success. Even when confirmationSent=false (Resend onboarding@resend.dev sender limitation), the API returns HTTP 201 with ok:true and the lead is successfully saved to MongoDB. Tested with two different email addresses - both leads persisted correctly. MongoDB verification confirmed 2 documents created with proper structure and data integrity."
 
+  - task: "Newsletter API - POST /api/newsletter (email validation, MongoDB save, dedupe)"
+    implemented: true
+    working: true
+    file: "app/api/newsletter/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "New endpoint. Zod validates email; saves to 'newsletter_subscribers' collection with UUID id + createdAt + source. Duplicate email returns HTTP 200 {ok:true, already:true} WITHOUT inserting a second doc. New email returns HTTP 201 {ok:true}. Invalid/missing email or invalid JSON returns HTTP 400 with error. GET /api/newsletter returns {ok:true, service:newsletter}."
+        -working: true
+        -agent: "testing"
+        -comment: "✓ ALL TESTS PASSED (7/7). Tested: (1) GET /api/newsletter returns {ok:true, service:newsletter}. (2) Valid NEW email POST returns HTTP 201 with {ok:true}. Verified MongoDB document inserted in 'newsletter_subscribers' collection with all required fields (id: UUID 'a86b078b-be3d-4061-bb5c-caf1cc1d6c5f', email: lowercased 'subscriber_fea0521d@example.com', createdAt: datetime, source: 'newsletter'). (3) DUPLICATE email POST returns HTTP 200 with {ok:true, already:true} and confirmed NO second document was inserted (count stayed at 1). (4) Validation errors correctly return HTTP 400 with error message and NO MongoDB insert for: invalid email format ('not-an-email'), missing email (empty body {}), invalid JSON body. (5) CASE-INSENSITIVITY VERIFIED: Posting uppercase variant 'SUBSCRIBER_FEA0521D@EXAMPLE.COM' of already-subscribed email correctly treated as duplicate (HTTP 200 with already:true), confirming emails are lowercased before deduplication. All MongoDB verifications passed. Newsletter API is fully functional and production-ready."
+
 metadata:
   created_by: "main_agent"
   version: "1.0"
-  test_sequence: 1
+  test_sequence: 2
   run_ui: false
 
 test_plan:
@@ -135,6 +150,8 @@ test_plan:
 agent_communication:
     -agent: "main"
     -message: "Please test POST /api/contact. Scenarios: (1) Valid payload {fullName,email,phone,whatsapp,course,message} returns 201 with ok:true and a lead id, and the document is inserted into 'contact_leads' in MongoDB (DB from DB_NAME env). (2) Invalid payloads (missing fullName, invalid email, missing course, empty body) return 400 with an error message and do NOT insert. (3) CRITICAL: Even if Resend email delivery fails (test sender onboarding@resend.dev cannot deliver to arbitrary addresses), the endpoint must still return 201 and the lead must remain saved in MongoDB (verify emailSent flag may be false but ok:true). (4) GET /api/contact returns {ok:true}. Do NOT use curl per instructions is fine to use python requests via base url internal. Base URL is the preview URL /api/contact."
+    -agent: "testing"
+    -message: "Newsletter API testing complete. All 7 tests passed successfully. Newsletter subscription endpoint is fully functional with proper email validation, MongoDB persistence, deduplication logic, and case-insensitive email handling. Verified: (1) GET endpoint works, (2) New subscriptions return HTTP 201 and save to MongoDB with correct schema (UUID id, lowercased email, createdAt, source), (3) Duplicate emails return HTTP 200 with already:true flag without inserting duplicates, (4) Invalid/missing emails return HTTP 400, (5) Case-insensitive deduplication works correctly. No issues found. Backend is production-ready."
 
 frontend:
   - task: "Mobile hamburger menu items visibility (Navbar.jsx)"
