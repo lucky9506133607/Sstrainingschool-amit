@@ -114,14 +114,14 @@ export default function Hero() {
       {/* Moving car track */}
       <div
         ref={trackRef}
-        className="absolute bottom-0 left-0 z-10 h-24 w-full overflow-hidden"
+        className="absolute bottom-0 left-0 z-10 h-28 w-full overflow-hidden"
       >
         <div className="absolute bottom-6 left-0 h-px w-full bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
         <div className="absolute bottom-5 left-0 h-px w-full bg-border" />
         <div ref={carRef} className="absolute bottom-6 left-0 will-change-transform">
           <svg
             viewBox="0 0 240 100"
-            className="h-12 w-auto drop-shadow-[0_12px_20px_rgba(220,38,38,0.4)] sm:h-14"
+            className="h-[65px] w-auto drop-shadow-[0_12px_20px_rgba(220,38,38,0.4)] sm:h-[76px]"
             aria-hidden="true"
           >
             <defs>
