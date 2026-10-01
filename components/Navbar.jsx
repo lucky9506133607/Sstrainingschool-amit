@@ -79,7 +79,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden fixed inset-x-0 top-16 z-40 origin-top overflow-hidden border-b border-border/60 bg-background/98 backdrop-blur transition-all duration-300 ${
+        className={`md:hidden fixed inset-x-0 top-16 z-40 origin-top overflow-hidden border-b border-border/60 bg-background shadow-xl shadow-black/40 backdrop-blur transition-all duration-300 ${
           open ? "max-h-[90vh] opacity-100" : "max-h-0 opacity-0"
         }`}
       >

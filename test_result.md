@@ -135,5 +135,29 @@ test_plan:
 agent_communication:
     -agent: "main"
     -message: "Please test POST /api/contact. Scenarios: (1) Valid payload {fullName,email,phone,whatsapp,course,message} returns 201 with ok:true and a lead id, and the document is inserted into 'contact_leads' in MongoDB (DB from DB_NAME env). (2) Invalid payloads (missing fullName, invalid email, missing course, empty body) return 400 with an error message and do NOT insert. (3) CRITICAL: Even if Resend email delivery fails (test sender onboarding@resend.dev cannot deliver to arbitrary addresses), the endpoint must still return 201 and the lead must remain saved in MongoDB (verify emailSent flag may be false but ok:true). (4) GET /api/contact returns {ok:true}. Do NOT use curl per instructions is fine to use python requests via base url internal. Base URL is the preview URL /api/contact."
+
+frontend:
+  - task: "Mobile hamburger menu items visibility (Navbar.jsx)"
+    implemented: true
+    working: true
+    file: "components/Navbar.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "BUG FIX: On mobile, when the hamburger menu opens the menu items were not visually visible. Root cause: the mobile menu panel used bg-background/98 (non-standard opacity step) which left the panel transparent, so the gray links were unreadable over the hero. Fix: changed panel background to solid 'bg-background' + added a shadow. Menu open/close logic, state, and click handlers were NOT changed. Please verify on a MOBILE viewport (e.g., 390x844 / iPhone). Open the hamburger (button[aria-label='Toggle menu']) and confirm: (a) the 6 nav items Home/About/Courses/Why Us/Pricing/Contact are clearly VISIBLE with readable contrast, (b) WhatsApp and 'Book Your Training' buttons are visible, (c) clicking a nav item scrolls to the section and closes the menu, (d) no horizontal scroll. Report screenshots."
+        -working: true
+        -agent: "testing"
+        -comment: "✓ ALL TESTS PASSED (10/10). Tested on mobile viewport (390x844). BUG FIX VERIFIED SUCCESSFUL: (1) Menu panel now has solid background rgb(10, 10, 10) - NO transparency detected. (2) All 6 nav items (Home, About, Courses, Why Us, Pricing, Contact) are clearly VISIBLE with proper dimensions (326x48px each) and readable contrast (text color: rgb(161, 161, 161) gray on dark background). (3) WhatsApp and 'Book Your Training' buttons are visible with proper dimensions (326x36px). (4) Navigation functionality works perfectly - clicking 'Pricing' scrolled page from 0px to 6304px and menu closed automatically (opacity: 0). (5) No horizontal scrolling detected (scrollWidth = viewport width = 390px) with menu both open and closed. (6) No console errors. Screenshots captured show menu items are now clearly visible with excellent contrast. The fix (changing from bg-background/98 to solid bg-background) successfully resolved the visibility issue."
+
+test_plan:
+  current_focus: []
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
     -agent: "testing"
     -message: "Backend testing complete. All 8 tests passed successfully. Contact API is fully functional with proper validation, MongoDB persistence, and critical Resend failure resilience. The CRITICAL requirement is met: leads are saved to MongoDB even when Resend email delivery fails (confirmationSent=false observed but lead persisted with HTTP 201). No issues found. Backend is production-ready."
+    -agent: "testing"
+    -message: "Frontend mobile hamburger menu bug fix testing complete. All 10 tests passed successfully. The visibility issue has been RESOLVED. Menu items are now clearly visible with solid background (rgb(10, 10, 10)) and readable contrast. All navigation functionality works correctly. No horizontal scrolling issues. Screenshots confirm the fix is working as expected. Frontend is production-ready."
