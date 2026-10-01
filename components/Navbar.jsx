@@ -37,9 +37,11 @@ export default function Navbar() {
     >
       <nav className="container flex h-16 items-center justify-between lg:h-20">
         <button onClick={() => go("#home")} className="flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary font-display text-sm font-bold text-primary-foreground">
-            SS
-          </span>
+          <img
+            src="/images/logo-square.jpg"
+            alt="SS Training School logo"
+            className="h-10 w-10 rounded-lg object-cover ring-1 ring-border"
+          />
           <span className="font-display text-lg font-bold tracking-tight">
             {siteConfig.shortName}
           </span>

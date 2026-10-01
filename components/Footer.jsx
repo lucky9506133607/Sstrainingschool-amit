@@ -9,9 +9,11 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
             <div className="flex items-center gap-2">
-              <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary font-display text-sm font-bold text-primary-foreground">
-                SS
-              </span>
+              <img
+                src="/images/logo-square.jpg"
+                alt="SS Training School logo"
+                className="h-10 w-10 rounded-lg object-cover ring-1 ring-border"
+              />
               <span className="font-display text-lg font-bold">{siteConfig.name}</span>
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
