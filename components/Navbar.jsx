@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X, MessageCircle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import siteConfig, { whatsappLink } from "@/lib/siteConfig";
@@ -9,6 +9,15 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [announce, setAnnounce] = useState(true);
+  const headerRef = useRef(null);
+  const [headerH, setHeaderH] = useState(0);
+
+  useEffect(() => {
+    const measure = () => setHeaderH(headerRef.current?.offsetHeight || 0);
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [announce, scrolled]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -32,6 +41,7 @@ export default function Navbar() {
 
   return (
     <header
+      ref={headerRef}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled || open ? "glass border-b border-border/60" : "bg-transparent"
       }`}
@@ -116,8 +126,9 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <div
-        className={`lg:hidden absolute left-0 right-0 top-full z-40 origin-top overflow-hidden border-b border-border/60 bg-background shadow-xl shadow-black/40 backdrop-blur transition-all duration-300 ${
-          open ? "max-h-[90vh] opacity-100" : "max-h-0 opacity-0"
+        style={{ top: headerH }}
+        className={`lg:hidden fixed inset-x-0 z-40 origin-top overflow-y-auto border-b border-border/60 bg-background shadow-xl shadow-black/40 transition-all duration-300 ${
+          open ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <div className="container flex flex-col gap-1 py-4">
